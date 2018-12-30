@@ -17,11 +17,11 @@ class DeckSystem():
         self.discard = [] 
         self.playing = []
         
+        self.turns_played = 0
+        
         self.fill_deck(deck_list)
         self.shuffle_deck()
         if debug: print('DECK CREATED\nDeck:', self.deck)
-        
-        
     
     def fill_deck(self, cards_to_add): #arg: a list of cards
         #if debug: print(cards_to_add)
@@ -35,15 +35,13 @@ class DeckSystem():
             drawn_card = self.deck.pop(0) #draw the top card on the deck
             self.hand.append(drawn_card) #add the drawn card to the end (-1) of the hand
             
-        if debug:print('DRAWED', num_to_draw, 'cards')
+        if debug:print('DREW', num_to_draw, 'cards')
         
     def play_card(self, card_index):
         played_card = self.hand.pop(card_index) #get the card
         self.playing.append(played_card) #transfer the card to the end of the playing "deck"
         if debug: print('PLAYED', played_card, 'from hand')
         return played_card #to alert the other programs that the card was played
-    
-    
     
     def discard_cards(self, location = 'hand', card_index = 'all'):
         
@@ -87,7 +85,8 @@ class DeckSystem():
             self.deck.insert(index_num, card)
         
         if debug:print('GAINED a', card, 'card (on top: ', top, ')')
-        
+                         
+    
     def shuffle_deck(self, pile_to_shuffle = 'deck'):
         if pile_to_shuffle == 'deck':
             random.shuffle(self.deck)    
@@ -152,6 +151,7 @@ def main_test():
     testgame.print_info(True, True, True, True)
     testgame.draw(5)
     testgame.print_info(True, True, True, True)
+    
     testgame.play_card(1)
     testgame.play_card(3)
     testgame.print_info(True, True, True, True)
@@ -168,8 +168,4 @@ def main_test():
     testgame.shuffle_deck('discard')
     testgame.print_info(True, True, True, True)
     
-    
-    
-    
-    
-main_test()
+#main_test()
